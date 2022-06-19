@@ -1,0 +1,93 @@
+.row{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.row div{
+  width:20px;
+  height: 20px;
+  padding:18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform:uppercase;
+  border:1px solid #dee1e9;
+  margin:3px;
+  font-size: 26px;
+  font-weight: bold;
+  border-radius:5px;
+}
+
+.row div.green{
+  --tile-color:rgb(136, 192, 136);
+  --letter-color:white;  
+}
+
+.row div.grey{
+  --tile-color:grey;
+  --letter-color:white;  
+}
+
+.row div.yellow{
+  --tile-color:#f3c237;
+  --letter-color:white;  
+}
+
+.pop{
+  animation:pop 0.5s;
+  border-color:#a7adc0 !important;
+}
+
+@keyframes pop{
+  0% {
+    transform: scale(1);
+  }
+
+  50%{
+    transform: scale(0.8);
+  }
+
+  100%{
+    transform:scale(1);
+  }
+
+}
+
+.flip{
+  animation: flip 0.5s forwards;
+}
+
+.flip0{
+  animation-delay: 0s;
+}
+.flip1{
+  animation-delay: 0.5s;
+}
+.flip2{
+  animation-delay: 1s;
+}
+.flip3{
+  animation-delay: 1.5s;
+}
+.flip4{
+  animation-delay: 2s;
+}
+.flip5{
+  animation-delay: 2.5s;
+}
+
+@keyframes flip {
+  0% {
+    transform: rotateX(0deg);
+  }
+  99.9% {
+    background-color: var(--tile-color);
+    color:var(--letter-color);
+  }
+  100%{
+    transform: rotateX(360deg);
+    background-color: var(--tile-color);
+    color:var(--letter-color);
+  }
+}
