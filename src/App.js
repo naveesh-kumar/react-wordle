@@ -6,7 +6,7 @@ const API_URL = "http://localhost:5000/words";
 function App() {
   const [randomWord, setRandomWord] = React.useState("");
   const [currentWordGuess, setCurrentWordGuess] = React.useState("");
-  const [wordGuesses, setWordGuesses] = React.useState([...Array(5)]);
+  const [wordGuesses, setWordGuesses] = React.useState([]);
   const [isWordGuessed, setIsWordGuessed] = React.useState(false);
 
   /*
@@ -75,6 +75,9 @@ function App() {
    */
 
   const handleKeyUp = ({ key }) => {
+    if(isWordGuessed){
+      return;
+    }
     //if entered key is Enter
     if (key === "Enter") {
       //not to update guesses if current guess  length is less than 5
@@ -133,12 +136,63 @@ function App() {
   return (
     <div className="App">
       <h2>My Wordle Game</h2>
-      {randomWord && <div>{randomWord}</div>}
-      <hr />
-      
+      {console.log(randomWord)}
+     
+      <div className="wordle">
+        {wordGuesses.map((guessArray, index) => {
+          return <Row key={index} guess={guessArray} />;
+        })}
+        {[...Array(6 - wordGuesses.length)].map((val, index) => {
+          return  <Row
+          key={index}
+          guess={val}
+          currentWordGuess={index===0 ? currentWordGuess:null}
+        />
+        })}
+      </div>
+
+      {isWordGuessed && <div>Congratulations, you have guessed the word correctly.</div>}
     </div>
   );
 }
 
+const Row = ({ guess, currentWordGuess }) => {
+  if (guess) {
+    return (
+      <div className="row">
+        {guess.map((obj, index) => {
+          return (
+            <div key={index} className={obj.color}>
+              {obj.guess}
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+
+  if (currentWordGuess) {
+    const currentWordGuessArray = [...currentWordGuess];
+    return (
+      <div className="row">
+        {currentWordGuessArray.map((ch, index) => {
+          return <div key={index} className="pop">{ch}</div>;
+        })}
+        {[...Array(5 - currentWordGuessArray.length)].map((val, index) => {
+          return <div key={index}></div>;
+        })}
+      </div>
+    );
+  }
+
+    return (
+      <div className="row">
+        {[...Array(5)].map((val,index)=>{
+          return <div key={index}></div>
+        })}
+      </div>
+    )
+  
+};
 
 export default App;
