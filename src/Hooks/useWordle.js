@@ -5,7 +5,7 @@ export const useWordle = (randomWord)=>{
   const [currentWordGuess, setCurrentWordGuess] = React.useState("");
   const [formattedWordGuesses, setFormattedWordGuesses] = React.useState([]);
   const [unformattedWordGuesses, setUnformattedGuesses] = React.useState([]);
-  const [isWordGuessed, setIsWordGuessed] = React.useState(false);
+  const [isWordGuessed, setIsWordGuessed] = React.useState(null);
 
   /*
    * formatting guesses to include color
@@ -69,9 +69,9 @@ export const useWordle = (randomWord)=>{
       return;
     }
 
-    //not to update guesses if user guesses 6 times
+    //not to update guesses if user guesses 6 times 
     if (formattedWordGuesses.length >5) {
-      alert("Sorry, guess limit exceeded");
+      setIsWordGuessed(false)
       return;
     }
     //if entered key is Enter
