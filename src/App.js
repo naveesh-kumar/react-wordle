@@ -1,15 +1,18 @@
 import React from "react";
 import Wordle from "./Components/Wordle/Wordle";
 import Message from "./Components/Message/Message";
+import Header from "./Components/Header/Header"
 import { useWordle } from "./Hooks/useWordle";
+import { useLocalStorage } from "./Hooks/useLocalStorage"
 import "./App.css";
 
 const API_URL = "http://localhost:5000/words";
 
 function App() {
   const [randomWord, setRandomWord] = React.useState("");
-  const [currentWordGuess, formattedWordGuesses, isWordGuessed, handleKeyUp] =
+  const [currentWordGuess, formattedWordGuesses, isWordGuessed, handleKeyUp, onHintClick] =
     useWordle(randomWord);
+  const [getLocalStorageData] = useLocalStorage();
 
   /*
    * fetching random word
@@ -36,7 +39,7 @@ function App() {
 
   return (
     <div className="App">
-      <h2>My Wordle Game</h2>
+      <Header onHintClick={onHintClick} onStatsClick={getLocalStorageData}/>
       {console.log(randomWord)}
       <Wordle
         formattedWordGuesses={formattedWordGuesses}
@@ -44,7 +47,7 @@ function App() {
       />
 
       {isWordGuessed!=null && (
-        isWordGuessed===true ? <Message message="You won"/> : <Message message="You lost"/>
+        isWordGuessed===true ? <Message result="won"/> : <Message result="lost"/>
       )}
     </div>
   );

@@ -1,9 +1,10 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./Message.css";
+import { faFaceSadTear, faTrophy } from "@fortawesome/free-solid-svg-icons";
 
-const Message = ({ message }) => {
+const Message = ({ result }) => {
   const [show, setShow] = React.useState(false);
-
   /**
    * delay by 3000 ms
    */
@@ -17,6 +18,28 @@ const Message = ({ message }) => {
     };
   }, []);
 
-  return <>{show && <div className="message">{message}</div>}</>;
+  if (result === "lost") {
+    return (
+      <>
+        {show && (
+          <div className="message">
+            You lost <FontAwesomeIcon icon={faFaceSadTear} />
+          </div>
+        )}
+      </>
+    );
+  }
+
+  if (result === "won") {
+    return (
+      <>
+        {show && (
+          <div className="message">
+            You won <FontAwesomeIcon icon={faTrophy} />
+          </div>
+        )}
+      </>
+    );
+  }
 };
 export default Message;

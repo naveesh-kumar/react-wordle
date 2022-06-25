@@ -4,7 +4,7 @@ import Row from "../Row/Row"
 const Wordle = ({formattedWordGuesses, currentWordGuess})=>{
   return (
     <div className="wordle">
-        {formattedWordGuesses.map((guessArray, index) => {
+        {formattedWordGuesses && formattedWordGuesses.map((guessArray, index) => {
           return <Row key={index} guess={guessArray} />;
         })}
         {[...Array(6 - formattedWordGuesses.length)].map((val, index) => {

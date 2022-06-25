@@ -1,11 +1,12 @@
-import React from 'react';
+import React from "react";
+import { useLocalStorage } from "./useLocalStorage";
 
-export const useWordle = (randomWord)=>{
-
+export const useWordle = (randomWord) => {
   const [currentWordGuess, setCurrentWordGuess] = React.useState("");
   const [formattedWordGuesses, setFormattedWordGuesses] = React.useState([]);
   const [unformattedWordGuesses, setUnformattedGuesses] = React.useState([]);
   const [isWordGuessed, setIsWordGuessed] = React.useState(null);
+  const [, setLocalstorageData] = useLocalStorage();
 
   /*
    * formatting guesses to include color
@@ -50,12 +51,13 @@ export const useWordle = (randomWord)=>{
       return [...prevGuesses, formattedGuess];
     });
 
-    setUnformattedGuesses(prevGuesses=>{
-      return [...prevGuesses, currentWordGuess]
-    })
+    setUnformattedGuesses((prevGuesses) => {
+      return [...prevGuesses, currentWordGuess];
+    });
 
     if (randomWord === currentWordGuess.toLowerCase()) {
       setIsWordGuessed(true);
+      setLocalstorageData("won");
     }
     setCurrentWordGuess("");
   };
@@ -69,9 +71,10 @@ export const useWordle = (randomWord)=>{
       return;
     }
 
-    //not to update guesses if user guesses 6 times 
-    if (formattedWordGuesses.length >5) {
-      setIsWordGuessed(false)
+    //not to update guesses if user guesses 6 times
+    if (formattedWordGuesses.length > 5) {
+      setIsWordGuessed(false);
+      setLocalstorageData("lost");
       return;
     }
     //if entered key is Enter
@@ -109,6 +112,39 @@ export const useWordle = (randomWord)=>{
     }
   };
 
-  return [currentWordGuess, formattedWordGuesses, isWordGuessed, handleKeyUp];
+  /**
+   * on hint button pressed in the header
+   */
 
-}
+  const onHintClick = (btn) => {
+    if (formattedWordGuesses.length > 0 && !isWordGuessed) {
+      //find index which has gray color
+      let firstUnknownLetterIndex = formattedWordGuesses[
+        formattedWordGuesses.length - 1
+      ].findIndex((charObj) => {
+        return charObj.color === "grey";
+      });
+      //matching letter for the unknown index from random word
+      let matchingLetter = randomWord[firstUnknownLetterIndex];
+
+      setCurrentWordGuess(() => {
+        let newGuess =
+          unformattedWordGuesses[unformattedWordGuesses.length - 1].slice(
+            0,
+            firstUnknownLetterIndex
+          ) + matchingLetter;
+        return newGuess;
+      });
+      //disable button after one hint
+      btn.target.disabled = true;
+    }
+  };
+
+  return [
+    currentWordGuess,
+    formattedWordGuesses,
+    isWordGuessed,
+    handleKeyUp,
+    onHintClick,
+  ];
+};
