@@ -1,0 +1,21 @@
+.footer-container{
+  margin: 10px auto;
+  width: 100%;
+  height: 60px;
+}
+
+.footer-container a{
+  color:black;
+  background-color: lightgray;
+  padding: 10px;
+  border-radius: 15px;
+  margin-right:10px;
+}
+
+.footer-container div{
+  margin-top: 10px;
+}
+
+.footer-container a:hover{
+  background-color: rgb(155, 148, 148);
+}

@@ -1,17 +1,30 @@
-import React from "react";
-import Wordle from "./Components/Wordle/Wordle";
+import React, { Suspense } from "react";
+import Header from "./Components/Header/Header";
 import Message from "./Components/Message/Message";
-import Header from "./Components/Header/Header"
 import { useWordle } from "./Hooks/useWordle";
-import { useLocalStorage } from "./Hooks/useLocalStorage"
+import { useLocalStorage } from "./Hooks/useLocalStorage";
+import { Routes, Route } from "react-router-dom";
 import "./App.css";
+import Footer from "./Components/Footer/Footer";
+
+const Wordle = React.lazy(() => import("./Components/Wordle/Wordle"));
+const Stats = React.lazy(() => import("./Components/Stats/Stats"));
+const About = React.lazy(() => import("./Components/About/About"));
+const DidNotMatch = React.lazy(() =>
+  import("./Components/DidNotMatch/DidNotMatch")
+);
 
 const API_URL = "http://localhost:5000/words";
 
 function App() {
   const [randomWord, setRandomWord] = React.useState("");
-  const [currentWordGuess, formattedWordGuesses, isWordGuessed, handleKeyUp, onHintClick] =
-    useWordle(randomWord);
+  const [
+    currentWordGuess,
+    formattedWordGuesses,
+    isWordGuessed,
+    handleKeyUp,
+    onHintClick,
+  ] = useWordle(randomWord);
   const [getLocalStorageData] = useLocalStorage();
 
   /*
@@ -39,16 +52,38 @@ function App() {
 
   return (
     <div className="App">
-      <Header onHintClick={onHintClick} onStatsClick={getLocalStorageData}/>
-      {console.log(randomWord)}
-      <Wordle
-        formattedWordGuesses={formattedWordGuesses}
-        currentWordGuess={currentWordGuess}
-      />
-
-      {isWordGuessed!=null && (
-        isWordGuessed===true ? <Message result="won"/> : <Message result="lost"/>
-      )}
+      <Header onHintClick={onHintClick} />
+      <div className="main">
+        <Suspense fallback={<div>Loading...</div>}>
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={
+                <>
+                  <Wordle
+                    formattedWordGuesses={formattedWordGuesses}
+                    currentWordGuess={currentWordGuess}
+                  />
+                  {isWordGuessed != null &&
+                    (isWordGuessed === true ? (
+                      <Message result="won" />
+                    ) : (
+                      <Message result="lost" word={randomWord}/>
+                    ))}
+                </>
+              }
+            />
+            <Route
+              path="/stats"
+              element={<Stats getLocalStorageData={getLocalStorageData} />}
+            />
+            <Route path="/about" element={<About />} />
+            <Route path="*" element={<DidNotMatch />} />
+          </Routes>
+        </Suspense>
+      </div>
+      <Footer />
     </div>
   );
 }

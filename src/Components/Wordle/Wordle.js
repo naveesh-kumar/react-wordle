@@ -1,5 +1,6 @@
 import React from "react";
-import Row from "../Row/Row"
+import Row from "../Row/Row";
+import "./Wordle.css"
 
 const Wordle = ({formattedWordGuesses, currentWordGuess})=>{
   return (

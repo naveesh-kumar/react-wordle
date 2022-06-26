@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./Message.css";
 import { faFaceSadTear, faTrophy } from "@fortawesome/free-solid-svg-icons";
 
-const Message = ({ result }) => {
+const Message = ({ result, word }) => {
   const [show, setShow] = React.useState(false);
   /**
    * delay by 3000 ms
@@ -23,7 +23,7 @@ const Message = ({ result }) => {
       <>
         {show && (
           <div className="message">
-            You lost <FontAwesomeIcon icon={faFaceSadTear} />
+            You lost <FontAwesomeIcon icon={faFaceSadTear} />, the word is {word.toUpperCase()}
           </div>
         )}
       </>

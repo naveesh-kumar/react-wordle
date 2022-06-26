@@ -4,7 +4,6 @@
   align-items: center;
   justify-content: space-around;
   padding: 15px;
-  margin-bottom: 20px;
   font-size: 23px;
   font-weight: 600;
 }
@@ -17,3 +16,11 @@
   justify-content: space-evenly;
 }
 
+.header-container a {
+  text-decoration: none;
+  color:black;
+}
+
+.header-container .header{
+  margin-bottom: 20px;
+}

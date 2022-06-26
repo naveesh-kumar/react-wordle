@@ -5,17 +5,19 @@ import {
   faRefresh,
 } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
+import { Link } from "react-router-dom";
 import Button from "../Button/Button";
 import "./Header.css";
 
-const Header = ({ onHintClick, onStatsClick }) => {
+const Header = ({ onHintClick }) => {
+
   const reload = () => {
-    window.location.reload();
+    window.location.href="/";
   };
 
   return (
     <div className="header-container">
-      <div>My Wordle Game</div>
+      <Link to="/"><div className="header">My Wordle Game</div></Link>
       <div className="header-nav-buttons">
         <Button buttonName="Play Again" icon={faRefresh} reload={reload} />
         <Button
@@ -23,8 +25,8 @@ const Header = ({ onHintClick, onStatsClick }) => {
           icon={faLightbulb}
           onHintClick={(btnRef) => onHintClick(btnRef)}
         />
-        <Button buttonName="Stats" icon={faCalculator} onStatsClick={onStatsClick}/>
-        <Button buttonName="About" icon={faInfoCircle} />
+        <Link to="/stats"><Button buttonName="Stats" icon={faCalculator} /></Link>
+        <Link to="/about"><Button buttonName="About" icon={faInfoCircle} /></Link>
       </div>
     </div>
   );

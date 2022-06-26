@@ -1,5 +1,6 @@
 import React from "react";
 import { useLocalStorage } from "./useLocalStorage";
+import wordExists from "word-exists";
 
 export const useWordle = (randomWord) => {
   const [currentWordGuess, setCurrentWordGuess] = React.useState("");
@@ -79,6 +80,12 @@ export const useWordle = (randomWord) => {
     }
     //if entered key is Enter
     if (key === "Enter") {
+      //If entered key is not a valid word
+      if (!wordExists(currentWordGuess)) {
+        alert("Not a valid word");
+        return;
+      }
+
       //not to update guesses if current guess  length is less than 5
       if (currentWordGuess.length < 5) {
         alert("Please enter 5 character word");
@@ -107,6 +114,7 @@ export const useWordle = (randomWord) => {
     let regex = new RegExp("^[A-Za-z]$");
     if (regex.test(key) && currentWordGuess.length < 5) {
       setCurrentWordGuess((prevGuess) => {
+        key = key.toLowerCase();
         return prevGuess + key;
       });
     }
