@@ -7,14 +7,15 @@ import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Footer from "./Components/Footer/Footer";
 
+import { ref, child, get } from "firebase/database";
+import db from "./Firebase/firebaseConfig";
+
 const Wordle = React.lazy(() => import("./Components/Wordle/Wordle"));
 const Stats = React.lazy(() => import("./Components/Stats/Stats"));
 const About = React.lazy(() => import("./Components/About/About"));
 const DidNotMatch = React.lazy(() =>
   import("./Components/DidNotMatch/DidNotMatch")
 );
-
-const API_URL = "http://localhost:5000/words";
 
 function App() {
   const [randomWord, setRandomWord] = React.useState("");
@@ -31,12 +32,19 @@ function App() {
    * fetching random word
    */
   React.useEffect(() => {
-    (async () => {
-      const response = await fetch(API_URL);
-      const words = await response.json();
-      const wordObj = words[Math.floor(Math.random() * words.length)];
-      setRandomWord(wordObj.word);
-    })();
+    get(child(ref(db), `words`))
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          const words = snapshot.val();
+          const wordObj = words[Math.floor(Math.random() * words.length)];
+          setRandomWord(wordObj.word);
+        } else {
+          console.log("No data available");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, []);
 
   /*
@@ -69,7 +77,7 @@ function App() {
                     (isWordGuessed === true ? (
                       <Message result="won" />
                     ) : (
-                      <Message result="lost" word={randomWord}/>
+                      <Message result="lost" word={randomWord} />
                     ))}
                 </>
               }

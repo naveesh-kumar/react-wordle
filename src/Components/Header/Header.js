@@ -1,5 +1,5 @@
 import {
-  faCalculator,
+  faBarChart,
   faInfoCircle,
   faLightbulb,
   faRefresh,
@@ -25,7 +25,7 @@ const Header = ({ onHintClick }) => {
           icon={faLightbulb}
           onHintClick={(btnRef) => onHintClick(btnRef)}
         />
-        <Link to="/stats"><Button buttonName="Stats" icon={faCalculator} /></Link>
+        <Link to="/stats"><Button buttonName="Stats" icon={faBarChart} /></Link>
         <Link to="/about"><Button buttonName="About" icon={faInfoCircle} /></Link>
       </div>
     </div>
