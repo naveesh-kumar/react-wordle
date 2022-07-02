@@ -3,13 +3,13 @@ import { getDatabase } from "firebase/database";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBaApT4WRhvGuWALn0rmNMRW1gc82oMp1g",
+  apiKey: process.env.REACT_APP_APIKEY,
   authDomain: "my-wordle-game.firebaseapp.com",
-  databaseURL: "https://my-wordle-game-default-rtdb.firebaseio.com",
+  databaseURL: process.env.REACT_APP_DATABASEURL,
   projectId: "my-wordle-game",
   storageBucket: "my-wordle-game.appspot.com",
-  messagingSenderId: "842345318858",
-  appId: "1:842345318858:web:844bf021490ca78457a733",
+  messagingSenderId: process.env.REACT_APP_MSGSENDERID,
+  appId: process.env.REACT_APP_APPID
 };
 
 // Initialize Firebase

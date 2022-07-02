@@ -6,6 +6,7 @@ import { useLocalStorage } from "./Hooks/useLocalStorage";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Footer from "./Components/Footer/Footer";
+import Keyboard from "./Components/Keyboard/Keyboard";
 
 import { ref, child, get } from "firebase/database";
 import db from "./Firebase/firebaseConfig";
@@ -73,12 +74,13 @@ function App() {
                     formattedWordGuesses={formattedWordGuesses}
                     currentWordGuess={currentWordGuess}
                   />
-                  {isWordGuessed != null &&
+                    <div class="message-container">{isWordGuessed != null &&
                     (isWordGuessed === true ? (
                       <Message result="won" />
                     ) : (
                       <Message result="lost" word={randomWord} />
-                    ))}
+                    ))}</div>
+                    <Keyboard handleKeyUp={handleKeyUp} />
                 </>
               }
             />

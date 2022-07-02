@@ -12,6 +12,10 @@
   }
 
   .main{
-    min-height: calc(0.7*100vh);
+    min-height: 80vh;
   }
+
+  .message-container{
+    min-height: 7.4vh;
+   }
   

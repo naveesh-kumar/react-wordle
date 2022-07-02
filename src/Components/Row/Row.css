@@ -5,8 +5,8 @@
 }
 
 .row div{
-  width:20px;
-  height: 20px;
+  width:2.2vh;
+  height: 2.2vh;
   padding:18px;
   display: flex;
   justify-content: center;
@@ -14,7 +14,7 @@
   text-transform:uppercase;
   border:1px solid #dee1e9;
   margin:3px;
-  font-size: 26px;
+  font-size: 3vh;
   font-weight: bold;
   border-radius:5px;
 }

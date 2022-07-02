@@ -1,0 +1,47 @@
+.keyboard-container{
+ margin: 20px auto;
+ padding:0 12px;
+ max-width:75vh;
+}
+
+.keyboard-first-row,  .keyboard-third-row{
+  display: grid;
+  grid-template-columns: repeat(20,1fr);
+  grid-template-rows: 1fr;
+  grid-gap:2px;
+  margin:2px 0;
+}
+
+.key{
+  min-height: 5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #dce1ed;
+  color: #5a6376;
+  text-transform: capitalize;
+  border: 2px solid transparent;
+  user-select: none;
+  cursor: pointer;
+  grid-column: span 2;
+  font-size: 2vh;
+  font-weight: bold;
+  border-radius:5px;
+}
+
+.key:hover{
+  background-color: lightgrey;
+}
+
+.keyboard-second-row{
+  display: grid;
+  grid-template-columns: repeat(18,1fr);
+  grid-template-rows: 1fr;
+  grid-gap:2px;
+  margin:2px 0;
+}
+
+.lg-key{
+  grid-column: span 3;
+  z-index:10000;
+}
