@@ -26,6 +26,7 @@ function App() {
     isWordGuessed,
     handleKeyUp,
     onHintClick,
+    usedCharacters
   ] = useWordle(randomWord);
   const [getLocalStorageData] = useLocalStorage();
 
@@ -80,7 +81,7 @@ function App() {
                     ) : (
                       <Message result="lost" word={randomWord} />
                     ))}</div>
-                    <Keyboard handleKeyUp={handleKeyUp} />
+                    <Keyboard handleKeyUp={handleKeyUp} usedCharacters={usedCharacters}/>
                 </>
               }
             />

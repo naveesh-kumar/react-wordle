@@ -29,10 +29,6 @@
   border-radius:5px;
 }
 
-.key:hover{
-  background-color: lightgrey;
-}
-
 .keyboard-second-row{
   display: grid;
   grid-template-columns: repeat(18,1fr);
@@ -44,4 +40,27 @@
 .lg-key{
   grid-column: span 3;
   z-index:10000;
+}
+
+.sm-key.grey{
+  --key-background:grey;
+  animation: fillColor 1s ease-in-out 2.5s forwards;
+}
+
+.sm-key.green{
+  --key-background: rgb(136, 192, 136);
+  animation: fillColor 1s ease-in-out 2.5s forwards;
+}
+
+.sm-key.yellow{
+  --key-background: #f3c237;
+  animation: fillColor 1s ease-in-out 2.5s forwards;
+}
+
+@keyframes fillColor {
+  100% {
+    background-color: var(--key-background);
+    color:white;
+  }
+  
 }

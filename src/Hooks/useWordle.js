@@ -8,6 +8,7 @@ export const useWordle = (randomWord) => {
   const [unformattedWordGuesses, setUnformattedGuesses] = React.useState([]);
   const [isWordGuessed, setIsWordGuessed] = React.useState(null);
   const [, setLocalstorageData] = useLocalStorage();
+  const [usedCharacters, setUsedCharacters] = React.useState({});
 
   /*
    * formatting guesses to include color
@@ -64,6 +65,18 @@ export const useWordle = (randomWord) => {
   };
 
   /*
+   * add used characters
+   */
+  const addUsedCharacters = (formattedGuess) => {
+    const newCharObj = formattedGuess.reduce((charObj, obj) => {
+        charObj[obj.guess] = obj.color;
+      return charObj;
+    }, {});
+
+    const newUsedCharactersobj = Object.assign({},usedCharacters, newCharObj);
+    setUsedCharacters(newUsedCharactersobj);
+  };
+  /**
    * handling keyup event
    */
 
@@ -100,6 +113,7 @@ export const useWordle = (randomWord) => {
 
       const formattedGuess = formatGuess();
       addGuesses(formattedGuess);
+      addUsedCharacters(formattedGuess);
     }
 
     //if entered key is Backspace
@@ -154,5 +168,6 @@ export const useWordle = (randomWord) => {
     isWordGuessed,
     handleKeyUp,
     onHintClick,
+    usedCharacters,
   ];
 };

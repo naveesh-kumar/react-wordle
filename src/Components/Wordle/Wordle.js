@@ -5,13 +5,13 @@ import "./Wordle.css"
 const Wordle = ({formattedWordGuesses, currentWordGuess})=>{
   return (
     <div className="wordle">
-        {formattedWordGuesses && formattedWordGuesses.map((guessArray, index) => {
+        {formattedWordGuesses.map((guessArray, index) => {
           return <Row key={index} guess={guessArray} />;
         })}
         {[...Array(6 - formattedWordGuesses.length)].map((val, index) => {
           return (
             <Row
-              key={index}
+              key={index+5}
               guess={val}
               currentWordGuess={index === 0 ? currentWordGuess : null}
             />
