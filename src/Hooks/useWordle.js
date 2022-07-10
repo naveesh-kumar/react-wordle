@@ -69,11 +69,13 @@ export const useWordle = (randomWord) => {
    */
   const addUsedCharacters = (formattedGuess) => {
     const newCharObj = formattedGuess.reduce((charObj, obj) => {
+      if(charObj[obj.guess]!=="green"){
         charObj[obj.guess] = obj.color;
+      }  
       return charObj;
-    }, {});
+    }, usedCharacters);
 
-    const newUsedCharactersobj = Object.assign({},usedCharacters, newCharObj);
+    const newUsedCharactersobj = Object.assign({}, newCharObj);
     setUsedCharacters(newUsedCharactersobj);
   };
   /**
