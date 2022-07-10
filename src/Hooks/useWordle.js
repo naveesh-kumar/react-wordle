@@ -7,7 +7,7 @@ export const useWordle = (randomWord) => {
   const [formattedWordGuesses, setFormattedWordGuesses] = React.useState([]);
   const [unformattedWordGuesses, setUnformattedGuesses] = React.useState([]);
   const [isWordGuessed, setIsWordGuessed] = React.useState(null);
-  const [, setLocalstorageData] = useLocalStorage();
+  const [, setLocalstorageData,] = useLocalStorage();
   const [usedCharacters, setUsedCharacters] = React.useState({});
 
   /*

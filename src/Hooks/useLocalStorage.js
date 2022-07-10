@@ -21,5 +21,10 @@ export const useLocalStorage = () => {
     setData(newData);
   }
 
-  return [getLocalStorageData, setLocalstorageData];
+  function clearLocalStorageData(){
+    localStorage.removeItem("my-wordle-game");
+    setData();
+  }
+
+  return [getLocalStorageData, setLocalstorageData, clearLocalStorageData];
 };

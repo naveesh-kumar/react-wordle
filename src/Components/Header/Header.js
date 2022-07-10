@@ -19,11 +19,11 @@ const Header = ({ onHintClick }) => {
     <div className="header-container">
       <Link to="/"><div className="header">My Wordle Game</div></Link>
       <div className="header-nav-buttons">
-        <Button buttonName="Play Again" icon={faRefresh} reload={reload} />
+        <Button buttonName="Play Again" icon={faRefresh} clickHandler={reload} />
         <Button
           buttonName="Hint"
           icon={faLightbulb}
-          onHintClick={(btnRef) => onHintClick(btnRef)}
+          clickHandler={(btnRef) => onHintClick(btnRef)}
         />
         <Link to="/stats"><Button buttonName="Stats" icon={faBarChart} /></Link>
         <Link to="/about"><Button buttonName="About" icon={faInfoCircle} /></Link>

@@ -26,9 +26,9 @@ function App() {
     isWordGuessed,
     handleKeyUp,
     onHintClick,
-    usedCharacters
+    usedCharacters,
   ] = useWordle(randomWord);
-  const [getLocalStorageData] = useLocalStorage();
+  const [getLocalStorageData, , clearLocalStorageData] = useLocalStorage();
 
   /*
    * fetching random word
@@ -75,19 +75,29 @@ function App() {
                     formattedWordGuesses={formattedWordGuesses}
                     currentWordGuess={currentWordGuess}
                   />
-                    <div class="message-container">{isWordGuessed != null &&
-                    (isWordGuessed === true ? (
-                      <Message result="won" />
-                    ) : (
-                      <Message result="lost" word={randomWord} />
-                    ))}</div>
-                    <Keyboard handleKeyUp={handleKeyUp} usedCharacters={usedCharacters}/>
+                  <div class="message-container">
+                    {isWordGuessed != null &&
+                      (isWordGuessed === true ? (
+                        <Message result="won" />
+                      ) : (
+                        <Message result="lost" word={randomWord} />
+                      ))}
+                  </div>
+                  <Keyboard
+                    handleKeyUp={handleKeyUp}
+                    usedCharacters={usedCharacters}
+                  />
                 </>
               }
             />
             <Route
               path="/stats"
-              element={<Stats getLocalStorageData={getLocalStorageData} />}
+              element={
+                <Stats
+                  getLocalStorageData={getLocalStorageData}
+                  clearLocalStorageData={clearLocalStorageData}
+                />
+              }
             />
             <Route path="/about" element={<About />} />
             <Route path="*" element={<DidNotMatch />} />

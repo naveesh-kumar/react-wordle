@@ -2,10 +2,10 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./Button.css";
 
-const Button = ({ buttonName, icon, reload, onHintClick, onStatsClick }) => {
+const Button = ({ buttonName, icon, clickHandler }) => {
   
   return (
-    <button onClick={reload || onHintClick || onStatsClick} >
+    <button onClick={clickHandler} >
       {buttonName} <FontAwesomeIcon icon={icon} />
     </button>
   );
